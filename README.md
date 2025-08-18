@@ -59,12 +59,7 @@ C:\Users\{你的用户名}\.vscode\extensions\augment.vscode-augment-*\
 找到插件的主入口文件（通常是 `out/extension.js`），在文件**最开头**添加：
 
 ```javascript
-try {
-    require('./augment-interceptor.js');
-    console.log('✅ Augment Code 拦截器已启动');
-} catch (error) {
-    console.error('❌ 拦截器加载失败:', error.message);
-}
+require('./augment-interceptor.js');
 ```
 
 #### 步骤4: 重启VSCode
