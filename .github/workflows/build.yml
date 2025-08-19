@@ -11,7 +11,7 @@ on:
       - '.github/workflows/**'
 
 env:
-  INTERCEPTOR_SCRIPT: 'augment-interceptor.js'
+  INTERCEPTOR_SCRIPT: './dist/augment-interceptor.js'
 
 jobs:
   build-and-release:

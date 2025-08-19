@@ -3,8 +3,7 @@
   var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
     get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
   }) : x)(function(x) {
-    if (typeof require !== "undefined")
-      return require.apply(this, arguments);
+    if (typeof require !== "undefined") return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
   var __esm = (fn, res) => function __init() {
@@ -321,8 +320,7 @@
     }
   }
   function log(message, level = "info") {
-    if (!INTERCEPTOR_CONFIG.debugMode)
-      return;
+    if (!INTERCEPTOR_CONFIG.debugMode) return;
     const prefix = "[AugmentCode拦截器]";
     switch (level) {
       case "warn":
@@ -1007,8 +1005,7 @@
 
   // src/utils/url-classifier.js
   function shouldInterceptUrl(url, data = "") {
-    if (typeof url !== "string")
-      return false;
+    if (typeof url !== "string") return false;
     const cached = URLClassificationCache.get(url, data);
     if (cached !== null) {
       return cached.shouldIntercept;
@@ -1198,13 +1195,10 @@
     return result;
   }
   function isSessionId(value) {
-    if (typeof value !== "string")
-      return false;
+    if (typeof value !== "string") return false;
     const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    if (uuidPattern.test(value))
-      return true;
-    if (value.length >= 16 && /^[a-zA-Z0-9_-]+$/.test(value))
-      return true;
+    if (uuidPattern.test(value)) return true;
+    if (value.length >= 16 && /^[a-zA-Z0-9_-]+$/.test(value)) return true;
     return false;
   }
   var SessionManager;
@@ -1254,8 +1248,7 @@
          * @returns {boolean} 是否进行了替换
          */
         replaceSessionIds(headers) {
-          if (!headers || typeof headers !== "object")
-            return false;
+          if (!headers || typeof headers !== "object") return false;
           let replaced = false;
           const idFieldMappings = {
             // 请求ID - 每次请求都应该是唯一的
@@ -1326,8 +1319,7 @@
          * @returns {boolean} 是否为必要端点
          */
         isEssentialEndpoint(context = "") {
-          if (!context)
-            return false;
+          if (!context) return false;
           const contextStr = context.toLowerCase();
           const isEssential = ESSENTIAL_ENDPOINTS.some((endpoint) => {
             const endpointLower = endpoint.toLowerCase();
@@ -1345,8 +1337,7 @@
          * @returns {boolean} 是否为精确的遥测端点
          */
         isPreciseTelemetryEndpoint(context = "") {
-          if (!context)
-            return false;
+          if (!context) return false;
           const contextStr = context.toLowerCase();
           const isExactMatch = PRECISE_TELEMETRY_ENDPOINTS.some((endpoint) => {
             const endpointLower = endpoint.toLowerCase();
@@ -1365,8 +1356,7 @@
          * @returns {boolean} 是否为代码索引相关
          */
         isCodeIndexingRelated(data, context = "") {
-          if (!data)
-            return false;
+          if (!data) return false;
           const dataStr = typeof data === "string" ? data : JSON.stringify(data);
           const contextStr = context.toLowerCase();
           const matchedPattern = CODE_INDEXING_PATTERNS.find(
@@ -1385,8 +1375,7 @@
          * @returns {boolean} 是否为遥测数据
          */
         isTelemetryData(data, context = "") {
-          if (!data)
-            return false;
+          if (!data) return false;
           const dataStr = typeof data === "string" ? data : JSON.stringify(data);
           const contextStr = context.toLowerCase();
           const matchedPattern = TELEMETRY_PATTERNS.find(
@@ -1449,8 +1438,7 @@
          * 记录所有请求的详细信息（包括拦截和放行的）
          */
         logRequestDetails(url, method = "GET", body = null, options = {}, action = "UNKNOWN", reason = "", response = null) {
-          if (!INTERCEPTOR_CONFIG.network.logAllRequests)
-            return;
+          if (!INTERCEPTOR_CONFIG.network.logAllRequests) return;
           const timestamp = (/* @__PURE__ */ new Date()).toISOString();
           const limit = INTERCEPTOR_CONFIG.network.requestLogLimit;
           let actionIcon = "";
@@ -1613,8 +1601,7 @@ ${JSON.stringify(response._jsonData, null, 2)}
          * 记录被放行的请求（调试功能）
          */
         logAllowedRequest(url, method = "GET", body = null, options = {}) {
-          if (!INTERCEPTOR_CONFIG.network.logAllowedRequests)
-            return;
+          if (!INTERCEPTOR_CONFIG.network.logAllowedRequests) return;
           this.logRequestDetails(url, method, body, options, "ALLOWED", "通过白名单检查");
         },
         /**
@@ -2684,8 +2671,7 @@ ${JSON.stringify(response._jsonData, null, 2)}
          * @returns {boolean} 是否为有效的Git URL
          */
         isValidGitUrl(url) {
-          if (!url || typeof url !== "string")
-            return false;
+          if (!url || typeof url !== "string") return false;
           const trimmedUrl = url.trim();
           const lines = trimmedUrl.split("\n");
           if (lines.length > 1) {
@@ -4503,12 +4489,9 @@ Hyper-V Requirements:          VM Monitor Mode Extensions: Yes
          */
         interceptReporterType(reporterType) {
           const globalObjects = [];
-          if (typeof global !== "undefined")
-            globalObjects.push(global);
-          if (typeof window !== "undefined")
-            globalObjects.push(window);
-          if (typeof self !== "undefined")
-            globalObjects.push(self);
+          if (typeof global !== "undefined") globalObjects.push(global);
+          if (typeof window !== "undefined") globalObjects.push(window);
+          if (typeof self !== "undefined") globalObjects.push(self);
           globalObjects.forEach((globalObj) => {
             if (globalObj && globalObj[reporterType]) {
               this.interceptReporterInstance(globalObj[reporterType], reporterType);
@@ -4521,8 +4504,7 @@ Hyper-V Requirements:          VM Monitor Mode Extensions: Yes
          * @param {string} reporterType - Reporter类型
          */
         interceptReporterInstance(reporter, reporterType) {
-          if (!reporter || typeof reporter !== "object")
-            return;
+          if (!reporter || typeof reporter !== "object") return;
           if (typeof reporter.enableUpload === "function") {
             const originalEnableUpload = reporter.enableUpload;
             reporter.enableUpload = function(...args) {
@@ -4850,8 +4832,7 @@ Hyper-V Requirements:          VM Monitor Mode Extensions: Yes
          * @returns {boolean} 是否与代码索引相关
          */
         isCodeIndexingRelatedError(message, stackTrace) {
-          if (!message && !stackTrace)
-            return false;
+          if (!message && !stackTrace) return false;
           const combinedText = `${message || ""} ${stackTrace || ""}`.toLowerCase();
           const isCodeIndexingRelated = CODE_INDEXING_PATTERNS.some(
             (pattern) => combinedText.includes(pattern.toLowerCase())
@@ -4918,7 +4899,7 @@ Hyper-V Requirements:          VM Monitor Mode Extensions: Yes
   });
 
   // src/index.js
-  var require_src = __commonJS({
+  var require_index = __commonJS({
     "src/index.js"(exports, module) {
       init_config();
       init_logger();
@@ -5223,5 +5204,5 @@ Hyper-V Requirements:          VM Monitor Mode Extensions: Yes
       })();
     }
   });
-  require_src();
+  require_index();
 })();
